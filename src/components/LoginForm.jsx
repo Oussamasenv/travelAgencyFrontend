@@ -1,10 +1,19 @@
+import { useNavigate } from "react-router-dom"
 
 
 export default function LoginForm(props) {
+
+    const navigate = useNavigate();
+
+
+
     return (
         <>
 
 <form action="#">
+
+            <h2 className='text-3xl mb-4 text-centefont-bold text-3xl text-[#002D74]'>Login</h2>
+                    <p className='mb1 text-sm mt-4 text-gray-500'>Login in to your account.</p>
             
             <div className="">
                 <input type="email" placeholder="email" className="p-2 mt-4 rounded-xl border w-full" />
@@ -40,7 +49,9 @@ export default function LoginForm(props) {
                 </svg>
                 Continue with Google
             </button>
-            <button>don't</button>
+            <div>
+            <button onClick={() => navigate('/register')} className="mt-3 w-full">don't have an account? click to create one.</button>
+            </div>
 
             </div>
 

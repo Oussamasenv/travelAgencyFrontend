@@ -75,8 +75,8 @@ export default function AuthenticationPage(props){
                 </div>
 
                 <div className="w-full lg:w-1/2 pt-10 pb-6 px-12">
-                    <h2 className='text-3xl mb-4 text-centefont-bold text-3xl text-[#002D74]'>{page.page}</h2>
-                    <p className='mb1 text-sm mt-4 text-gray-500'>Create your account. it is free only take couple of seconds.</p>
+                    {/* <h2 className='text-3xl mb-4 text-centefont-bold text-3xl text-[#002D74]'>{page.page}</h2>
+                    <p className='mb1 text-sm mt-4 text-gray-500'>Create your account. it is free only take couple of seconds.</p> */}
 
                     {/* {page.page ==="Login" ? <LoginForm/> : <RegisterForm content={page.text}/>} 
 

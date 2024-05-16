@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom"
 
 
 
 export default function RegisterForm(props){
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -9,6 +12,11 @@ export default function RegisterForm(props){
         
 
         <form action="#">
+
+            <h2 className='text-3xl mb-4 text-centefont-bold text-3xl text-[#002D74]'>Register</h2>
+                    <p className='mb1 text-sm mt-4 text-gray-500'>Create your account. it is free only take couple of seconds.</p>
+
+            
             <div className="grid grid-cols-2 gap-5">
                 <input type="text" placeholder="firstName" className="p-2 mt-8 rounded-xl border" />
                 <input type="text" placeholder="lastName" className="p-2 mt-8 rounded-xl border " />
@@ -58,6 +66,10 @@ export default function RegisterForm(props){
                 </svg>
                 Continue with Google
                 </button>
+
+                <div className="mt-5 text-center">
+                <button onClick={() => navigate('/login')} className="">Already registred? click to login.</button>
+                </div>
 
             </div>
 
