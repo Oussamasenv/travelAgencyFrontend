@@ -1,4 +1,5 @@
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AuthenticationPage from "./components/AuthenticationPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -9,7 +10,7 @@ function App() {
     <>
     {/* <RegisterPage/>  */}
     <Router>
-      <nav>
+      {/* <nav>
         <ul>
           <li>
             <Link to="/">HomePage</Link>
@@ -21,7 +22,10 @@ function App() {
             <Link to="/login">AuthenticationPage</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+
+      <Navbar/>
+
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/register" element={<RegisterPage/>}></Route>
