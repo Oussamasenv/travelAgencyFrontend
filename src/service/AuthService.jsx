@@ -5,6 +5,7 @@ import axios from "axios";
 
 export const loginOperation = async (loginObject) => {
 
+
     try{
 
         console.log("check 2")
@@ -16,14 +17,20 @@ export const loginOperation = async (loginObject) => {
                 'Content-Type': 'application/json',
               },
             }
+        ).then ( res => {
+            localStorage.setItem('token', res.data.token);
+            console('enter valid info')
+
+        }).catch ( err => console.log('enter valid info')
         )
 
-        localStorage.setItem('token', response.data.token);
         console.log(response.data.token);
-        return response.data;
+        
     } catch (error) {
-        console.error(error);
+        console.log('enter valid info')
     }
+
+   
 
 }
 
@@ -43,6 +50,9 @@ export const registerOperation = async (registerObject) => {
     } catch (error) {
         console.log(error);
     }
+
+    
+    
 }
 
 

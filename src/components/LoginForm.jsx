@@ -73,19 +73,19 @@ export default function LoginForm(props) {
 
         const handleSubmit = async (e) => {
 
+            try{
+
             e.preventDefault();
-
-            console.log("check 1")
-
+            
             validateForm()
-            // .then(() => {
-            loginOperation(login);
-            // })
-            // .catch( ()=> {
-            //     console.log("error");
-            // });
+
+            await loginOperation(login);
+
+        } catch (error) {
+            console.log('error occured');
 
         }
+    }
 
 
 
@@ -125,22 +125,23 @@ export default function LoginForm(props) {
 
         <form onSubmit={handleSubmit}>
 
+
             <h2 className='text-3xl mb-4 text-centefont-bold text-3xl text-[#002D74]'>Login</h2>
                     <p className='mb1 text-sm mt-4 text-gray-500'>Login in to your account.</p>
             
             <div className="">
-                <input name="email" value={email} type="email" placeholder="email" className="p-2 mt-4 rounded-xl border w-full" onChange={handleChange}/>
+                <input name="email" value={email} type="email" placeholder="email" className="p-2 mt-4 rounded-xl border w-full caret-pink-500" onChange={handleChange}/>
                 {errors.email && <p>{errors.email}</p>}
             </div>
 
             <div className="">
-                <input name="password" value={password} type="password" placeholder="password" className="p-2 mt-4 rounded-xl border w-full" onChange={handleChange}/>
+                <input name="password" value={password} type="password" placeholder="password" className="p-2 mt-4 rounded-xl border w-full caret-pink-500" onChange={handleChange}/>
                 {errors.password && <p>{errors.password}</p>}
 
             </div>
 
             <div className="mt-5">
-                <input name="terms" value={terms} type="checkbox" className="border border-gray-400 m-2" onChange={handleCheckedChange}/>
+                <input name="terms" value={terms} type="checkbox" className="accent-pink-300 focus:accent-pink-500 m-2" onChange={handleCheckedChange}/>
                 <span>
                     I accept the <a href="#" className="text-purple-500 font-semibold">Terms of use</a> & <a href="#" className="text-purple-500 font-semibold">Privacy Policy</a> 
                 </span>

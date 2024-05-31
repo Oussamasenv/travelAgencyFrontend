@@ -1,30 +1,32 @@
-import axios from "axios"
-import { useState } from "react"
+import SeaImage from "../assets/sea2.jpeg"
+import Search from "../components/Search"
+import Continents from "../components/Continents"
 
 
 export default function HomePage() {
 
-    const [airp, setAirp] = useState();
-
-
-    axios.get("http://localhost:8080/airplaneCompanies ",
-        {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        }
-    }
-    ).then ( resp => setAirp(resp))
-    .catch ( err => console.log(err));
-
-
-
 
     return (
         <>
-        <div className="flex h-screen bg-gradient-to-r from-purple-500 to-pink-500 items-center justify-around">
-            <div className="bg-yellow-300 m-4">login</div>
-            <div className="bg-green-400">register</div>
+        <div className="">
+            <div className="">
+                <div className="h-110 w-full flex relative justify-center bg-cover bg-center"
+                style={{backgroundImage: `url(${SeaImage})`}}>
+
+                <div className="w-full h-full flex place-items-end">
+                <div className="text-white mb-36 ml-14">
+                <h3 className="text-4xl mb-4">Agence de Voyage</h3>
+                <h1 className="text-5xl font-extrabold">LE MONDE SELON VOS ENVIES</h1>
+                </div>
+                </div>
+
+                <Search />
+
+                </div>
+            </div>
+            <Continents />
         </div>
+
 
         </>
     )

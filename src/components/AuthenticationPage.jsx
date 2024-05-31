@@ -61,7 +61,7 @@ export default function AuthenticationPage(props){
     return (
 
         <>
-        <div className="min-h-screen py-40" style={{
+        <div className="min-h-screen py-10" style={{
             backgroundImage: "linear-gradient(115deg, #38bdf8, #fee2e2)"
         }}>
             <div className="container mx-auto">
