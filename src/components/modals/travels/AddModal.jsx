@@ -11,24 +11,93 @@ export default function AddModal() {
     const [open, setOpen] = useState(false)
     const [programs, setPrograms ] = useState([])
     const [ airplaneCompanies, setAirplaneCompanies ] = useState([]);
-    const [ travel, setTravel ] = useState({
-        name: '',
-        continent: '',
-        country: '',
-        departure: '',
-        type: '',
-        initialPrice: 0,
-        discountedPrice: 0,
-        groupSize: 0,
-        airplaneCompanies: [],
-        programs: [],
-        facilities: []
-    });
+    const [ travelWapper, setTravelWrapper ] = useState({
+        
+        travelDto: {
 
-    const options = programs.map( option => (
+            name: '',
+            continent: '',
+            country: '',
+            departure: '',
+            type: '',
+            initialPrice: 0,
+            discountedPrice: 0,
+            groupSize: 0,
+            description: ''
+
+        },
+
+        airplaneCompanyDtos: [],
+        programDtos: []
+
+    });
+    const [ selectedPrograms, setSelectedPrograms ] = useState([])
+    const [ selectedAirplaneCompany, setSelectedAirplaneCompany ] = useState([])
+
+    const handleSelectPrograms = (data)=> {
+        setSelectedPrograms(data)
+        
+    }
+
+    const handleSelectAirplaneCompany = (data) => {
+        setSelectedAirplaneCompany(data);
+    }
+
+    useEffect( ()=> {
+
+        let ac = airplaneCompanies.filter( ac => {
+            return (
+                ac.name === selectedAirplaneCompany.value
+            )
+        })
+
+        console.log(ac);
+
+        setTravelWrapper(
+            {
+                ...travelWapper,
+                airplaneCompanyDtos: ac
+            }
+        )
+
+    }, [selectedAirplaneCompany])
+
+    useEffect(()=> {
+        // let prs = programs.filter( pr => {
+        //     return (
+        //         selectedPrograms.filter( selectedpr => {
+        //             return pr.name === selectedpr.value
+        //         })
+        //     )
+        // })
+
+        let prs = selectedPrograms.flatMap(selectedp => {
+            return programs.filter(pr => pr.name === selectedp.value);
+        });
+
+
+        console.log(prs);
+
+        setTravelWrapper(
+            {
+                ...travelWapper,
+                programDtos: prs
+            }
+        )
+
+    }, [selectedPrograms])
+
+    const optionsAc = airplaneCompanies.map( ac => (
         {
-            label: option.name,
-            value: option.name
+            label: ac.name,
+            value: ac.name
+        }
+    ))
+
+    const optionsPr = programs.map( pr => (
+        {
+            label: pr.name,
+            value: pr.name
         }
     )
     )
@@ -41,26 +110,11 @@ export default function AddModal() {
 
     }, [])
 
-    useEffect(()=>{
-        console.log(programs);
-        console.log(airplaneCompanies);
-        console.log(travel)
-        let newAirplaneCompanies = [...travel.airplaneCompanies, ...airplaneCompanies];
-        let newPrgrams = [...travel.programs, ...programs];
-        
-        setTravel(
-            {
-                ...travel,
-                airplaneCompanies: newAirplaneCompanies,
-                programs: newPrgrams
-            }
-        )
-
-    }, [airplaneCompanies, programs]) //these dont change shouldnt reply on them
 
     useEffect(()=>{
-        console.log(travel)
-    },  [travel])
+        console.log(travelWapper)
+    }, [travelWapper])
+    
 
 
     const handleChange = (event) => {
@@ -71,11 +125,16 @@ export default function AddModal() {
         const {name, value} = event.target;
         const newValue =  value;
 
-        setTravel({
-            ...travel,
-            [name]: newValue
-        })
-    };
+        setTravelWrapper( prevState => (
+            {
+                ...prevState,
+                travelDto: {
+                    ...prevState.travelDto,
+                    [name]: newValue
+                }
+            }
+        ))
+    }
 
 
     const handleSubmit = async (e)=> {
@@ -86,11 +145,20 @@ export default function AddModal() {
 
             // validateForm();
 
-            let res = await createTravel(travel);
+            let newDeparture = travelWapper.travelDto.departure;
+
+            let newTravelWrapper = {
+                ...travelWapper,
+                travelDto: {
+                    ...travelWapper.travelDto,
+                    departure: `${newDeparture}+00:00`
+                }
+            }
+
+            let res = await createTravel(newTravelWrapper);
 
             console.log(res);
 
-            // console.log(travel);
 
         }catch(error){
 
@@ -99,8 +167,6 @@ export default function AddModal() {
         }
     }
 
-
-    const [optionsPr] = useState(programs);
     
   return (
     <div>
@@ -111,16 +177,17 @@ export default function AddModal() {
 
       <Modal open={open} onClose={() => setOpen(false)}>
 
-        <div className="text-center w-[30rem] h-[30rem] flex items-center justify-center">
+        <div className="text-center w-[39rem] h-[39rem] flex items-center justify-start pl-14">
 
-        <form className='flex flex-col space-y-2 divide-y-2 items-start justify-start' onSubmit={handleSubmit}>
+        <form className='flex flex-col space-y-3  items-start justify-start' onSubmit={handleSubmit}>
             <div>
                 <label>Name: </label>
                 <input
                     type="text"
                     name="name"
-                    value={travel.name}
+                    value={travelWapper.travelDto.name}
                     onChange={handleChange}
+                    className='border-2 rounded-lg p-1'
                 />
             </div>
             <div>
@@ -128,8 +195,9 @@ export default function AddModal() {
                 <input
                     type="text"
                     name="continent"
-                    value={travel.continent}
+                    value={travelWapper.travelDto.continent}
                     onChange={handleChange}
+                    className='border-2 rounded-lg'
                 />
             </div>
             <div>
@@ -137,17 +205,19 @@ export default function AddModal() {
                 <input
                     type="text"
                     name="country"
-                    value={travel.country}
+                    value={travelWapper.travelDto.country}
                     onChange={handleChange}
+                    className='border-2 rounded-lg'
                 />
             </div>
             <div>
                 <label>Departure: </label>
                 <input
-                    type="date"
+                    type="datetime-local"
                     name="departure"
-                    value={travel.departure}
+                    value={travelWapper.travelDto.departure}
                     onChange={handleChange}
+                    className='border-2 rounded-lg'
                 />
             </div>
             <div>
@@ -155,8 +225,9 @@ export default function AddModal() {
                 <input
                     type="text"
                     name="type"
-                    value={travel.type}
+                    value={travelWapper.travelDto.type}
                     onChange={handleChange}
+                    className='border-2 rounded-lg'
                 />
             </div>
             <div>
@@ -164,8 +235,9 @@ export default function AddModal() {
                 <input
                     type="number"
                     name="initialPrice"
-                    value={travel.initialPrice}
+                    value={travelWapper.travelDto.initialPrice}
                     onChange={handleChange}
+                    className='border-2 rounded-lg p-1'
                 />
             </div>
             <div>
@@ -173,8 +245,9 @@ export default function AddModal() {
                 <input
                     type="number"
                     name="discountedPrice"
-                    value={travel.discountedPrice}
+                    value={travelWapper.travelDto.discountedPrice}
                     onChange={handleChange}
+                    className='border-2 rounded-lg'
                 />
             </div>
             <div>
@@ -182,27 +255,32 @@ export default function AddModal() {
                 <input
                     type="number"
                     name="groupSize"
-                    value={travel.groupSize}
+                    value={travelWapper.travelDto.groupSize}
                     onChange={handleChange}
+                    className='border-2 rounded-lg'
                 />
             </div>
             <div>
+                <label>Description: </label>
+                <input
+                    type="text"
+                    name="description"
+                    value={travelWapper.travelDto.description}
+                    onChange={handleChange}
+                    className='border-2 rounded-lg'
+                />
+            </div>
+
+            <div>
                 
                 <label htmlFor='airplaneCompany'>AirplaneCompany: </label>
-                <select name='airplaneCompany'>
-                    {
-                        airplaneCompanies.map( ac => {
-                            return (
-                                <option onChange={handleChange} key={ac.id} value={airplaneCompanies}>{ac.name}</option>
-                            )
-                        }
-                        )
-                    }
-                </select>
+                
+                <ReactSelect options={optionsAc} value={selectedAirplaneCompany} onChange={handleSelectAirplaneCompany} />
+
             </div>
             <div>
                 
-                <ReactSelect isMulti options={options} selectedValues={programs}/>
+                <ReactSelect isMulti options={optionsPr} value={selectedPrograms} onChange={handleSelectPrograms}/>
 
             </div>
             <div>
@@ -210,7 +288,7 @@ export default function AddModal() {
                 <input
                     type="text"
                     name="facilities"
-                    value={travel.facilities}
+                    value={travelWapper.travelDto.facilities}
                     onChange={handleChange}
                 />
             </div>

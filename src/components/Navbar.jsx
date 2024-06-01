@@ -13,7 +13,7 @@ function Navbar() {
     }
 
   return (
-    <nav className="p-2 mt-0 fixed w-full z-10 top-0 h-16 bg-white border-b-20">
+    <nav className="p-2 mt-0 fixed w-full z-10 top-0 h-20 bg-white border-b-20">
       <div className="container mx-auto flex justify-between">
         <div className="flex">
           <Link to="/" className="w-14">
@@ -22,8 +22,6 @@ function Navbar() {
         </div>
         <div className="flex">
           <Link to={"/admin/travels"} className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">Admin</Link>
-          <Link to="/travels/search" className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">search</Link>
-          <Link to="/travels" className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">travels</Link>
           <Link to="/register" className="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4">
             Register
           </Link>
