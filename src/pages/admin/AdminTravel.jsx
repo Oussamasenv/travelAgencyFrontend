@@ -106,11 +106,8 @@ export default function AdminTravel(){
                                         <td className="border px-8 py-4">{formatInTimeZone(new Date(travel.returnDate * 1000), timeZone, 'yyyy-MM-dd HH:mm:ss z')}</td>
                                         <td className="border px-8 py-4">
                                             <div className="flex space-x-2 text-white">
-                                                {/* <button className="bg-blue-200 rounded-lg text-black p-2">edit</button> */}
                                                 <EditModal />
-                                                {/* <button onClick={()=>{onDelete(travel.id)}} className="bg-red-400 rounded-lg p-1">delete</button> */}
                                                 <AppModal deleteFunction={onDelete} id={travel.id}/>
-                                                {/* <button className="bg-yellow-500 rounded-lg p-1">show</button> */}
                                                 <ShowDetails travel={travel} />
                                                 
                                             </div>

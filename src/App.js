@@ -15,6 +15,7 @@ import AdminReservation from "./pages/admin/AdminReservation"
 import AdminCustomer from "./pages/admin/AdminCustomer"
 import AdminUser from "./pages/admin/AdminUser"
 import AdminRoom from "./pages/admin/AdminRoom"
+import Travel from "./pages/Travel";
 
 
 
@@ -45,12 +46,7 @@ function App() {
                 <Route path="/admin/customers" element={<AdminCustomer />} />
                 <Route path="/admin/rooms" element={<AdminRoom />} />
                 <Route path="/admin/users" element={<AdminUser />} />
-
-
-
-
-
-               
+                <Route path="/travels/:id" element={<Travel />}/>               
 
               </Routes>
             </Layout>

@@ -3,7 +3,6 @@ import Modal from '../../Modal'
 import { fetchPrograms } from '../../../service/ProgramService'
 import { fetchAirplaneCompanies } from '../../../service/AirPlaneCompanyService'
 import { createTravel } from '../../../service/TravelService'
-import Multiselect from 'multiselect-react-dropdown'
 import ReactSelect from 'react-select'
 
 export default function AddModal() {
@@ -31,6 +30,7 @@ export default function AddModal() {
         programDtos: []
 
     });
+
     const [ selectedPrograms, setSelectedPrograms ] = useState([])
     const [ selectedAirplaneCompany, setSelectedAirplaneCompany ] = useState([])
 
@@ -63,13 +63,6 @@ export default function AddModal() {
     }, [selectedAirplaneCompany])
 
     useEffect(()=> {
-        // let prs = programs.filter( pr => {
-        //     return (
-        //         selectedPrograms.filter( selectedpr => {
-        //             return pr.name === selectedpr.value
-        //         })
-        //     )
-        // })
 
         let prs = selectedPrograms.flatMap(selectedp => {
             return programs.filter(pr => pr.name === selectedp.value);

@@ -1,7 +1,6 @@
 import EuropeImage from "../assets/europe.jpg"
 import './continents.css'
 import { useRef } from "react";
-import { useEffect } from "react";
 
 export default function Continents() {
 
@@ -33,8 +32,17 @@ export default function Continents() {
 
 
     return (
-            <div className = "m-10 mr-0 mt-40 rounded-lg">
-              <div className = "flex justify-between ml-8 mr-8 mb-1 mt-2 text-center items-center"><div className="flex flex-col items-start"><p className="uppercase font-semibold text-gray-600 text-xl">pret pour une nouvelle adventure?</p><p className="text-3xl uppercase font-bold">trouver votre prochaine desitination.</p></div><div><button onClick={scrollLeft} className="mr-4">left</button><button onClick={scrollRight}>right</button></div></div>
+            <div className = "md:m-10 m-2 mt-60  mr-0 md:mt-40 rounded-lg">
+              <div className = "flex justify-between ml-8 mr-8 mb-1 mt-2 text-center items-center">
+                <div className="flex flex-col items-start text-left pr-6">
+                  <p className="uppercase font-semibold text-gray-600 text-xl">pret pour une nouvelle adventure?</p>
+                  <p className="text-3xl uppercase font-bold">trouver votre prochaine desitination.</p>
+                  </div>
+                  <div>
+                    <button onClick={scrollLeft} className="mr-4">left</button>
+                    <button onClick={scrollRight}>right</button>
+                    </div>
+                    </div>
                   <div ref = {scrollContainerRef} className="hide-scrollbar snap-mandatory snap-x scroll-smooth ml-8 mt-4 p-5 flex  overflow-x-auto h-[22rem] space-x-8">
 
     

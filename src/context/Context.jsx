@@ -4,9 +4,13 @@ const SearchContext = createContext();
 
 const SearchProvider = ({ children }) => {
     const [ travels, setTravels ] = useState([]);
+    const [ programs, setPrograms ] = useState([])
     const [ searchParams, setSearchParams] = useState(
         {
             name: '',
+            destination: '',
+            duration: 0,
+            travelers: 0,
             pageNumber: 0,
             pageSize: 10,
             sortBy: "id",
@@ -23,8 +27,9 @@ const SearchProvider = ({ children }) => {
         ))
     }
 
+
     return (
-        <SearchContext.Provider value={{ travels, setTravels, searchParams, updateSearchParams }}>
+        <SearchContext.Provider value={{ travels, setTravels, searchParams, updateSearchParams, programs, setPrograms }}>
             {children}
         </SearchContext.Provider>
     )

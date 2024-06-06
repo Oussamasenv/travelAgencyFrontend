@@ -3,23 +3,22 @@ import europe from '../assets/europe.jpg'
 import Search from "../components/Search"
 import { SearchContext } from "../context/Context"
 import { fetchTravels } from "../service/TravelService";
-import { useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export default function SearchedTravels() {
 
     const { searchParams, updateSearchParams } = useContext(SearchContext);
-    const { travels } = useContext(SearchContext);
+    const { travels, setTravels } = useContext(SearchContext);
     const [ travelsState, setTravelsState ] = useState([]);
     let totalPages = useRef(0);
     let pagingDivs = useRef([]);
     let currentPage = useRef(1);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
 
     useEffect( ()=> {
-        console.log(travels)
-        setLoading(true);
+
         setTravelsState(travels);
         totalPages.current = travels.totalPages;
         currentPage.current = travels.number;
@@ -30,16 +29,9 @@ export default function SearchedTravels() {
         pagingDivs.current = newPagingDivs;
         setLoading(false);
 
-        console.log("current page: ",currentPage.current)
-        console.log("total page: ", totalPages.current)
-        console.log("pages: ", pagingDivs)
-
     }, [travels])
 
     useEffect(  ()=> {
-        
-        console.log(currentPage)
-        console.log(pagingDivs)
 
     }, [travelsState])
 
@@ -62,14 +54,7 @@ export default function SearchedTravels() {
 
     const onPaginateNumber = (pageNumber)=> {
 
-
-        console.log(pageNumber)
-
         updateSearchParams({pageNumber})
-
-        // currentPage.current = pageNumber;
-
-
         
     }
 
@@ -82,6 +67,16 @@ export default function SearchedTravels() {
 
     }, [searchParams])
 
+    useEffect(()=>{
+
+        getTravels();
+
+    }, [])
+
+    const getTravels = async ()=>{
+        let travels = await fetchTravels(searchParams);
+        setTravels(travels);
+    }
 
 
 
@@ -122,7 +117,7 @@ export default function SearchedTravels() {
                     
 
                         <div className=" pl-4 text-2xl flex justify-between">
-                            <p className="font-bold text-3xl ml-8 ">12 tours found</p>
+                            <p className="font-bold text-3xl ml-8 "> {travelsState.totalElements} tours found</p>
                             <p className="pr-20">show on the map</p>
                             
                         </div>
@@ -133,48 +128,24 @@ export default function SearchedTravels() {
                   
                   <div className="flex flex-row">
                     <div>
-                    <div className=" w-full h-full grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2">
 
-                        <div className="p-8 relative ">
-                            <p className="absolute right-12 top-10 bg-[#FF62AB] text-white rounded-2xl p-1">10 jours</p>
-                            <div className="bg-white group w-full rounded-lg overflow-hidden border-2">
-                                <div className="rounded-lg  h-[12rem]">
-                                    <img className="object-cover h-full w-full" src={europe} alt="" />
-                                </div>
-                                <div className="p-4 pt-2">
-                                    <p className="pb-2 text-2xl font-semibold group-hover:text-[#FF62AB] transition ease-in-out ease-out-in delay-200">jamaa lafna trip</p>
-                                    <p className="break-words text-sm line-clamp-2">hello my name is oussama, i am your guide knsdjc d sos sco sdo sdcjo sdcod  scjo soc sod ojdsj codsc jos cjdsc </p>
-                                    <p className="mt-2 font-semibold text-red-500 line-through">16,000.00MAD</p>
-                                    <p className="text-xl font-semibold">14,000.00MAD</p>
-                                </div>
-                            </div>
-                        </div>
+                    {
+                        loading ? <div>Loading...</div> : (
 
-                    
+                            <div className=" w-full h-full grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2">
 
-                            <div className="p-8 relative">
-                            <p className="absolute right-12 top-10 bg-[#FF62AB] text-white rounded-2xl p-1">10 jours</p>
-                            <div className="bg-white group w-full rounded-lg overflow-hidden border-2">
-                                <div className="rounded-lg  h-[12rem]">
-                                    <img className="object-cover h-full w-full" src={europe} alt="" />
-                                </div>
-                                <div className="p-4 pt-2">
-                                    <p className="pb-2 text-2xl font-semibold group-hover:text-rose-400 transition ease-in-out ease-out-in delay-300">jamaa lafna trip</p>
-                                    <p className="break-words text-sm">hello my name is oussama, i am your guide </p>
-                                    <p className="mt-2 font-semibold text-red-500 line-through">16,000.00MAD</p>
-                                    <p className="text-xl font-semibold">14,000.00MAD</p>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         {
                             travelsState.content && travelsState.content.map( travel => {
                                 return (
+
+                                    <Link to={`http://localhost:3000/travels/${travel.id}`} key={travel.id}>
                                     
 
                                         
-                                                <div  key={travel.id} className="p-8 relative">
-                                                                                <p className="absolute right-12 top-10 bg-[#FF62AB] text-white rounded-2xl p-1">10 jours</p>
+                                                <div  className="p-8 relative">
+                                                                                <p className="absolute right-12 top-10 bg-[#FF62AB] text-white font-semibold rounded-2xl p-1">{travel.duration} jours</p>
 
                                                     <div className="bg-white group w-full rounded-lg overflow-hidden">
                                                         <div className="rounded-lg  h-[12rem]">
@@ -188,6 +159,8 @@ export default function SearchedTravels() {
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                    </Link>
                                             
                                 )
                             })
@@ -195,6 +168,10 @@ export default function SearchedTravels() {
                         }
 
                         </div>
+                            
+                        )
+                    }
+                    
 
                         <div className="ml-10 p-10 flex space-x-4  items-baseline">
 
