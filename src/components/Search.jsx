@@ -1,10 +1,8 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchTravels } from "../service/TravelService"
-import FetchedTravels from "./FetchedTravels";
-import axios from "axios";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../context/Context";
-import { duration } from "moment-timezone";
 
 export default function Search(props) {
 
@@ -33,16 +31,19 @@ export default function Search(props) {
     const updateSearch = () => {
 
         updateSearchParams(typedValues);
+        navigate(`/travels/search`)
 
+    };
+
+    const fetchAndUpdateTravels = async () => {
+        let travels = await fetchTravels(searchParams);
+        setTravels(travels);
     };
 
     useEffect(() => {
         
         if(isMounted){
-        const fetchAndUpdateTravels = async () => {
-            let travels = await fetchTravels(searchParams);
-            setTravels(travels);
-        };
+        
 
         if (currentUrl !== "/travels/search") {
             navigate("/travels/search");
@@ -72,11 +73,6 @@ export default function Search(props) {
     }, [typedValues])
     
 
-
-
-
-    
-
     return (
 
         <div 
@@ -99,13 +95,13 @@ export default function Search(props) {
                             <span className="text-gray-500 text-2xl">Flight Type: </span>
                             <div className="flex space-x-4 text-2xl">
                                 <label>
-                                    <input className="mr-2 h-4 w-4" type="radio" name="flightType" />One Way
+                                    <input className="mr-2 h-4 w-4" type="radio" value="ONEWAY" name="type" onChange={handleChange} />One Way
                                 </label>
                                 <label>
-                                    <input className="mr-2 h-4 w-4" type="radio" name="flightType" />Round trip
+                                    <input className="mr-2 h-4 w-4" type="radio" value="ROUNDTRIP" name="type" onChange={handleChange} />Round trip
                                 </label>
                                 <label>
-                                    <input className="mr-2 h-4 w-4" type="radio" name="flightType" />Multiple-destinations
+                                    <input className="mr-2 h-4 w-4" type="radio" value="MULTICITY" name="type" onChange={handleChange} />Multiple-destinations
                                 </label>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Logo from '../../assets/logo1.jpeg'
+import Logo from '../../assets/logo2.png'
 import { Link } from "react-router-dom";
 
 
@@ -29,7 +29,7 @@ export default function SideBarAdmin(){
             <div className="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
                 <div className="relative flex items-center justify-center h-20 shadow-md">
                 {/* <h1 className="text-3xl uppercase text-indigo-500">Logo</h1> */}
-                <img className="size-16" src={Logo} alt="logo" />
+                <Link to={'/'}><img className="size-32" src={Logo} alt="logo" /></Link>
                 <button onClick={onChangeDisplay} className="absolute bg-purple-200 rounded-xl size-10 right-2 top-2">hide</button>
                 </div>
                 <ul className="flex flex-col py-4">

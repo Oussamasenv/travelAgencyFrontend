@@ -8,6 +8,7 @@ import DisplayMessage from "../../components/DisplayMessage";
 import EditModal from "../../components/modals/travels/EditModal";
 import ShowDetails from "../../components/modals/travels/ShowDetails";
 import AddModal from "../../components/modals/travels/AddModal";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,6 +22,8 @@ export default function AdminTravel(){
     let currentPage = useRef(1);
     const timeZone = 'UTC';
     const [ displayMessage, setDisplayMessage ] = useState('');
+    const { authenticated } = useContext(SearchContext);
+    const navigate = useNavigate();
     
     const fetchAndUpdateTravels = async () => {
         let travels = await fetchTravels(searchParams);
@@ -47,9 +50,15 @@ export default function AdminTravel(){
     }
 
     useEffect(()=>{
+        console.log(authenticated);
+    }, [authenticated ])
+
+    useEffect(()=>{
         console.log(displayMessage)
     }, [displayMessage])
 
+    if ( authenticated ) {
+    
     return (
         <div className="flex ">
 
@@ -129,4 +138,8 @@ export default function AdminTravel(){
             </div>
         </div>
     )
+} else {
+    navigate('/login')
+}
+
 }

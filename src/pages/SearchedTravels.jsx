@@ -3,13 +3,17 @@ import europe from '../assets/europe.jpg'
 import Search from "../components/Search"
 import { SearchContext } from "../context/Context"
 import { fetchTravels } from "../service/TravelService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
+
 
 
 export default function SearchedTravels() {
 
-    const { searchParams, updateSearchParams } = useContext(SearchContext);
-    const { travels, setTravels } = useContext(SearchContext);
+    const { searchParams, updateSearchParams, travels, setTravels, authenticated, decodedToken } = useContext(SearchContext);
+    const navigate = useNavigate();
     const [ travelsState, setTravelsState ] = useState([]);
     let totalPages = useRef(0);
     let pagingDivs = useRef([]);
@@ -32,6 +36,8 @@ export default function SearchedTravels() {
     }, [travels])
 
     useEffect(  ()=> {
+
+        console.log(travelsState);
 
     }, [travelsState])
 
@@ -83,11 +89,16 @@ export default function SearchedTravels() {
 
     return (
         <>
+        
 
-        <div>
-            <div className="h-70 w-full flex relative justify-center bg-neutral-100">
+        <div className="w-full h-full">
+            <Navbar />
+            
+            <div className="h-full mt-20 h-full w-full flex relative justify-center bg-neutral-100 ">
 
-                <div className="w-full h-full flex place-items-end">
+                
+
+                <div className="w-full h-full flex place-items-end mt-20">
                 <div className="text-white mb-28 ml-40 mt-6">
                 <h3 className="text-xl text-neutral-500 font-bold text-gray-200">AGENCE DE VOYAGE</h3>
                 <h1 className="text-3xl text-neutral-950 font-extrabold">SEARCH TRAVELS</h1>
@@ -99,7 +110,7 @@ export default function SearchedTravels() {
             </div>
 
 
-            <div className="h-screen mt-36 flex flex-col lg:flex-row">
+            <div className=" mt-36 flex flex-col lg:flex-row w-full h-full">
                 <div className="h-full w-full lg:w-96 flex justify-center">
                     <div className="w-[16rem] bg-white border-2 ml-20 mb-10 rounded-lg">
 
@@ -126,7 +137,7 @@ export default function SearchedTravels() {
                 
                     
                   
-                  <div className="flex flex-row">
+                  <div className="flex flex-row w-full h-full mb-10">
                     <div>
 
                     {
@@ -140,27 +151,35 @@ export default function SearchedTravels() {
                             travelsState.content && travelsState.content.map( travel => {
                                 return (
 
-                                    <Link to={`http://localhost:3000/travels/${travel.id}`} key={travel.id}>
+                                    <div key={travel.id}>
+                                    
+                                        <Link to={ authenticated ? `http://localhost:3000/travels/${travel.id}`: '/login'  } key={travel.id}>
                                     
 
                                         
-                                                <div  className="p-8 relative">
-                                                                                <p className="absolute right-12 top-10 bg-[#FF62AB] text-white font-semibold rounded-2xl p-1">{travel.duration} jours</p>
-
-                                                    <div className="bg-white group w-full rounded-lg overflow-hidden">
-                                                        <div className="rounded-lg  h-[12rem]">
-                                                            <img className="object-cover h-full w-full" src={europe} alt="" />
-                                                        </div>
-                                                        <div className="p-4 pt-2 border-2">
-                                                            <p className="pb-2 text-2xl font-semibold group-hover:text-rose-400 transition ease-in-out ease-out-in delay-300">{travel.name}</p>
-                                                            <p className="break-words text-sm line-clamp-2">hello my name is oussama, i am your guide knsdjc d sos sco sdo sdcjo sdcod  scjo soc sod ojdsj codsc jos cjdsc </p>
-                                                            <p className="mt-2 font-semibold text-red-500 line-through">16,000.00MAD</p>
-                                                            <p className="text-xl font-semibold">14,000.00MAD</p>
-                                                        </div>
+                                            <div  className="p-8 relative">
+                                                <p className="absolute right-12 top-10 bg-[#FF62AB] text-white font-semibold rounded-2xl p-1">{travel.duration} jours</p>
+        
+                                                <div className="bg-white group w-full rounded-xl overflow-hidden shadow-lg">
+                                                    <div className="rounded-lg  h-[12rem]">
+                                                        <img className="object-cover h-full w-full" src={europe} alt="" />
+                                                    </div>
+                                                    <div className="p-4 pt-2 border-2">
+                                                        <p className="pb-2 text-2xl font-semibold group-hover:text-rose-400 transition ease-in-out ease-out-in delay-100">{travel.name}</p>
+                                                        <p className="break-words text-sm line-clamp-2">hello my name is oussama, i am your guide knsdjc d sos sco sdo sdcjo sdcod  scjo soc sod ojdsj codsc jos cjdsc </p>
+                                                        <p className="mt-2 font-semibold text-red-500 line-through">16,000.00MAD</p>
+                                                        <p className="text-xl font-semibold">14,000.00MAD</p>
                                                     </div>
                                                 </div>
+                                            </div>
+    
+                                        </Link> 
+                                        
+                                    
+                                    
+                                    </div>
 
-                                    </Link>
+                                    
                                             
                                 )
                             })
@@ -173,7 +192,7 @@ export default function SearchedTravels() {
                     }
                     
 
-                        <div className="ml-10 p-10 flex space-x-4  items-baseline">
+                        <div className="ml-10 p-10 flex space-x-4  items-baseline self-center">
 
                             
                             
@@ -189,7 +208,7 @@ export default function SearchedTravels() {
                             }
                             
                            
-                            <ul className="flex space-x-4  items-baseline">
+                            <ul className="flex space-x-4  items-baseline ">
                             {
                                 pagingDivs.current.map( numb => {
                                     return (
@@ -211,14 +230,24 @@ export default function SearchedTravels() {
                                 ) : ''
                             }
 
+
                             
 
                         </div>
+                        
                     </div>
                     </div>            
                     </div>
+                    
             </div>
+
+            <Footer />
+
+            
+            
         </div>
+        
+        
 
         </>
     )

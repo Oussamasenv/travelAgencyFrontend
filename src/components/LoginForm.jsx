@@ -6,6 +6,8 @@ import { loginOperation } from "../service/AuthService";
 
 export default function LoginForm(props) {
 
+
+
     const [login, setLogin] = useState(
         {
             email: "",
@@ -20,7 +22,8 @@ export default function LoginForm(props) {
 
     
 
-    const validateForm = () => {
+        const validateForm = () => {
+
 
         let formIsValid = true;
         let errors = {};
@@ -79,12 +82,21 @@ export default function LoginForm(props) {
             
             validateForm()
 
-            await loginOperation(login);
+            const response = await loginOperation(login);
 
-        } catch (error) {
-            console.log('error occured');
+            console.log(response);
 
-        }
+            if (response.status === 200 ) {
+
+                navigate('/');
+
+
+            }
+
+            } catch (error) {
+                console.log('error occured');
+
+            }
     }
 
 

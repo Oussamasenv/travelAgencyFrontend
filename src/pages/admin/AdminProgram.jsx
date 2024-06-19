@@ -7,6 +7,7 @@ import { SearchContext } from '../../context/Context';
 const AdminProgram = () => {
 
   const { programs, setPrograms } = useContext(SearchContext);
+  const [ programsState, setProgramsState ] = useState([]);
 
   const getPrograms = async () => {
 

@@ -4,16 +4,20 @@ import Continents from "../components/Continents"
 import LearnMoreImage from "../assets/bg-group.webp"
 import IcelandImg from "../assets/iceland.webp"
 import Footer from "../components/Footer"
+import Navbar from "../components/Navbar"
 
 
 export default function HomePage() {
+
+
 
 
     return (
         <>
         <div className="flex flex-col">
             <div className="">
-                <div className="h-110 w-full flex relative justify-center bg-cover bg-center"
+                <Navbar />
+                <div className="h-110 w-full mt-20 flex relative justify-center bg-cover bg-center"
                 style={{backgroundImage: `url(${SeaImage})`}}>
 
                 <div className="w-full h-full flex place-items-end">
