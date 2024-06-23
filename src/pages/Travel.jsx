@@ -8,6 +8,7 @@ import { formatInTimeZone } from 'date-fns-tz';
 import AddTravelers from '../components/modals/reservation/AddTravelers';
 import AddRooms from '../components/modals/reservation/AddRooms';
 import RAM from '../assets/RAM2.png'
+import Kech from "../assets/kech.webp"
 
 
 
@@ -69,7 +70,7 @@ export default function Travel() {
                                     
                                     {
         
-                                                <img className='object-cover h-[30rem] w-full' src={`/images/${program.filedatas[0].name}`}></img>
+                                                <img className='object-cover h-[30rem] w-full' src={Kech}></img>
         
                                     }
                                    
@@ -102,7 +103,7 @@ export default function Travel() {
                                     
                                     {
         
-                                                <img className='object-cover h-[30rem] w-full rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
+                                                <img className='object-cover h-[30rem] w-full rounded-xl' src={Kech}></img>
         
                                     }
                                    
@@ -121,20 +122,14 @@ export default function Travel() {
                                     {
                                         <div key={program.id} className='flex space-x-6 overflow-auto hide-scrollbar'>
         
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
-                                                <img className='size-[10rem] object-cover rounded-xl' src={`/images/${program.filedatas[0].name}`}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+                                                <img className='size-[10rem] object-cover rounded-xl' src={Kech}></img>
+    
         
                                         </div>
                                                 

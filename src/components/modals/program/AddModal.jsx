@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Modal from '../../Modal'
 import { saveProgram } from '../../../service/ProgramService'
-import Travel from '../../../pages/Travel'
 
 
 export default function AddModal() {

@@ -76,7 +76,7 @@ export default function Search(props) {
     return (
 
         <div 
-                className="bg-white translate-y-1/2 mx-auto flex flex-col items-start border-yellow-300 border-8 justify-center absolute bottom-0 rounded-xl w-[91%] p-6">
+                className="bg-white translate-y-1/2 mx-auto flex flex-col items-start border-yellow-200 border-8 justify-center absolute bottom-0 rounded-xl w-[91%] p-6">
 
                     <div className="flex flex-col space-y-5 w-full">
                         {/* <div className="flex space-x-8 items-baseline">
