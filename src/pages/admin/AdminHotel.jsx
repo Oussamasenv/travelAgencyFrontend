@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import SideBarAdmin from '../../components/admin/SideBarAdmin'
-import AddModal from '../../components/modals/hotel/AddModal'
+import AddModal from '../../components/modals/hotel/AddModal2'
 import RoomAddModal from '../../components/modals/room/RoomAddModal'
 import { getHotels } from '../../service/HotelService'
 
 export default function AdminHotel() {
+  
   const [ hotels, setHotels ] = useState([])
 
   const fetchHotels = async ()=>{
@@ -34,7 +35,7 @@ export default function AdminHotel() {
         <div>
           <SideBarAdmin />
         </div>
-        <div className='w-full h-full p-20 bg-gray-100 h-screen'>
+        <div className='w-full h-full p-20 bg-gray-100'>
           <div className="flex justify-between bg-white rounded-lg p-4 text-xl">
                 <div>filter</div>
                 {/* <div>add</div> */}
@@ -55,6 +56,8 @@ export default function AdminHotel() {
                     <th className="bg-blue-100 border text-left px-8 py-4">stars</th>
                     {/* <th className="bg-blue-100 border text-left px-8 py-4">destination</th> */}
                     <th className="bg-blue-100 border text-left px-8 py-4">Action</th>
+                    <th className="bg-blue-100 border text-left px-8 py-4">pictures</th>
+
 
                 </tr>
                 </thead>
@@ -72,6 +75,10 @@ export default function AdminHotel() {
                           <td className="border px-6 py-4 w-2">{hotel.name}</td>
                           <td className="border px-6 py-4 w-2">{hotel.location}</td>
                           <td className="border px-6 py-4 w-2">{hotel.stars}</td>
+                          <td className="border px-6 py-4 w-2">edit/delete/view</td>
+                          <td className="border px-6 py-4 w-2"><img className='object-cover size-[6rem] rounded-xl mb-2' src={`/images/${hotel.filedatas[0].name}`} /></td>
+                          
+
                           {/* <td className="border px-6 py-4 w-2">{program.destination}</td> */}
            
                         </tr>

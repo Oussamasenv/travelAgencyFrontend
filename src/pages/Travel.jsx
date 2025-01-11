@@ -8,7 +8,7 @@ import { formatInTimeZone } from 'date-fns-tz';
 import AddTravelers from '../components/modals/reservation/AddTravelers';
 import AddRooms from '../components/modals/reservation/AddRooms';
 import RAM from '../assets/RAM2.png'
-import Kech from "../assets/kech.webp"
+import Kech from "../assets/europe.jpg"
 
 
 
@@ -64,20 +64,12 @@ export default function Travel() {
         
                 <div className='w-full h-full mt-20'>
                     {
-                        travel.programs && travel.programs.map( program => {
-                            return (
-                                <div className='h-20 w-full h-full'>
-                                    
-                                    {
-        
-                                                <img className='object-cover h-[30rem] w-full' src={Kech}></img>
-        
-                                    }
-                                   
-                                    
-                                </div>
-                            )
-                        })
+                        travel.programs && (
+                            <div>
+                                <img className='object-cover h-[30rem] w-full' src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`}></img>
+
+                            </div>
+                        )
                     }
                 </div>
         
@@ -96,25 +88,26 @@ export default function Travel() {
                         </div>
                         <div className='flex flex-col space-y-6'>
         
-                        {
-                        travel.programs && travel.programs.map( program => {
+                        {/* {
+                        travel.programs ? travel.programs.map( program => {
                             return (
                                 <div className='w-full h-full flex flex-col'>
                                     
                                     {
-        
-                                                <img className='object-cover h-[30rem] w-full rounded-xl' src={Kech}></img>
-        
+                                        <div className='w-full h-full'>
+                                            <img className='object-cover size-[24rem] rounded-xl' src={Kech} />
+
+                                        </div>
                                     }
                                    
                                     
                                 </div>
-                            )
-                        })
-                        }
+                            ) 
+                        }) : <h1>no room available</h1>
+                        } */}
         
                         <div>
-                        {
+                        {/* {
                         travel.programs && travel.programs.map( program => {
                             return (
                                 <div key={program.id} className='w-full h-full'>
@@ -140,7 +133,7 @@ export default function Travel() {
                                 </div>
                             )
                         })
-                        }
+                        } */}
                         </div>
         
                         <div className='flex flex-col space-y-4'>
@@ -153,49 +146,30 @@ export default function Travel() {
                             <h1 className='text-4xl font-semibold mt-20'>Programs</h1>
         
                             <div className='flex overflow-auto hide-scrollbar space-x-4'>
+
+
+                            {
+                                travel.programs && travel.programs.map(
+                                    program => (
+
+                                        <div className='flex-shrink-0 flex flex-col text-xl'>
         
+                                            <img className='object-cover size-[24rem] rounded-xl mb-2' src={`/images/${program.filedatas[0].name}`} />
+                                            <div className='p-4 flex flex-col'>
+                                            <span className='font-bold'>{program.destination}</span>
+                                            <span>{program.description}</span>
+                                            </div>
+                
+                                        </div> 
+
+                                    )
+                                )
+                            }
         
-                                <div className='flex-shrink-0 flex flex-col'>
+
+                                
         
-                                    <img className='object-cover size-[24rem] rounded-xl' src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`} />
-                                    <span>{travel.programs && travel.programs[0].destination}</span>
-                                    <span>{travel.programs && travel.programs[0].description}</span>
-        
-                                </div> 
-        
-                                <div className='flex-shrink-0 flex flex-col'>
-        
-                                    <img className='object-cover size-[24rem] rounded-xl' src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`} />
-                                    <span>{travel.programs && travel.programs[0].destination}</span>
-                                    <span>{travel.programs && travel.programs[0].description}</span>
-        
-                                </div> 
-        
-                                <div className='flex-shrink-0 flex flex-col'>
-        
-                                    <img className='object-cover size-[24rem] rounded-xl' src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`} />
-                                    <span>{travel.programs ? travel.programs[0].destination : <p>Loading...</p>}</span>
-                                    <span>{travel.programs ? travel.programs[0].description : <p>Loading...</p>}</span>
-        
-                                </div> 
-        
-                                <div className='flex-shrink-0 flex flex-col'>
-        
-                                    <img className='object-cover size-[24rem] rounded-xl' src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`} />
-                                    <span>{travel.programs && travel.programs[0].destination}</span>
-                                    <span>{travel.programs && travel.programs[0].description}</span>
-        
-                                </div> 
-        
-                                <div className='flex-shrink-0 flex flex-col relative'>
-        
-                                    <span className='absolute'>{}{travel.programs && travel.programs[0].duration}</span>
-        
-                                    <img className='object-cover size-[24rem] rounded-xl' src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`} />
-                                    <span>{travel.programs && travel.programs[0].destination}</span>
-                                    <span>{travel.programs && travel.programs[0].description}</span>
-        
-                                </div> 
+                               
         
                             </div>
         

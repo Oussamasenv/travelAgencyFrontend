@@ -49,15 +49,13 @@ export default function AdminTravel(){
 
     }
 
-    useEffect(()=>{
-        console.log(authenticated);
-    }, [authenticated ])
+
 
     useEffect(()=>{
         console.log(displayMessage)
     }, [displayMessage])
 
-    if ( authenticated ) {
+    
     
     return (
         <div className="flex ">
@@ -138,8 +136,6 @@ export default function AdminTravel(){
             </div>
         </div>
     )
-} else {
-    navigate('/login')
-}
+
 
 }

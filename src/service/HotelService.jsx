@@ -7,7 +7,6 @@ export const saveHotel = async (hotelData)=> {
 
     console.log("data: ", hotelData);
 
-
     try {
 
         let response = await axios.post(
@@ -17,8 +16,8 @@ export const saveHotel = async (hotelData)=> {
             , 
             {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                    // "Content-Type": 'multipart/form-data'
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": 'multipart/form-data'
                 }
             }
         )

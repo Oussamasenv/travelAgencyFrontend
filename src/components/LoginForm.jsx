@@ -18,11 +18,12 @@ export default function LoginForm(props) {
     const [terms, setTerms] = useState(false);
     const [errors, setErrors] = useState({});
     const [validForm, setValidForm] = useState(false);
+    const navigate = useNavigate();
 
 
     
 
-        const validateForm = () => {
+        const validateForm = (callback) => {
 
 
         let formIsValid = true;
@@ -66,37 +67,28 @@ export default function LoginForm(props) {
         setErrors(errors);
         setValidForm(formIsValid);
 
-        console.log(formIsValid)
-
-        console.log(validForm);
-
-    
+        callback(formIsValid);
 
         };
 
         const handleSubmit = async (e) => {
 
-            try{
-
             e.preventDefault();
+
+            validateForm( async (isValid) => {
+                if (isValid) {
+                    const response = await loginOperation(login);
+                    console.log(response);
+                    if (response?.status === 200) {
+                        navigate('/');
+                    } else {
+                        alert('form is not valid')
+                        setValidForm(false);
+                    }
+                }
+            })
+
             
-            validateForm()
-
-            const response = await loginOperation(login);
-
-            console.log(response);
-
-            if (response.status === 200 ) {
-
-                navigate('/');
-
-
-            }
-
-            } catch (error) {
-                console.log('error occured');
-
-            }
     }
 
 
@@ -125,7 +117,7 @@ export default function LoginForm(props) {
 
 
 
-    const navigate = useNavigate();
+    
 
     const { email, password  } = login;
 

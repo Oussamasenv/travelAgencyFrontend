@@ -40,9 +40,10 @@ export const registerOperation = async (registerObject) => {
         localStorage.setItem('token', response.data.token);
         console.log(registerObject);
         console.log(response.data);
-        return response.data;
+        return response;
     } catch (error) {
         console.log(error);
+        
     }
 
     

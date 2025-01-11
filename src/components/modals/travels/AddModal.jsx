@@ -175,6 +175,7 @@ export default function AddModal() {
 
     const handleSubmit = async (e)=> {
     
+        
         try {
 
             e.preventDefault();
@@ -201,6 +202,7 @@ export default function AddModal() {
             console.log(error)
 
         }
+        setOpen(false);
     }
 
     

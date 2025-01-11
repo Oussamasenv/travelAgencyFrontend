@@ -6,7 +6,8 @@ import { saveHotel } from '../../../service/HotelService'
 
 export default function AddModal() {
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [ request , setRequest ] = useState(new FormData());
     const [ formData, setFormData] = useState(
       {
         hotelDto:{
@@ -15,7 +16,6 @@ export default function AddModal() {
         roomDtos: []
       }
     )
-
 
     const [ hotelDtoObj, setHotelDtoObj ] = useState(
       {
@@ -43,10 +43,10 @@ export default function AddModal() {
 
     useEffect(()=>{
 
-      // if (roomDto instanceof FormData) {
-      //   for (let [key, value] of roomDto.entries()) {
-      //     console.log(key, value);
-      //   }
+      if (roomDto instanceof FormData) {
+        for (let [key, value] of roomDto.entries()) {
+          console.log(key, value);
+        }
 
         setFormData(
           {
@@ -58,13 +58,8 @@ export default function AddModal() {
 
       }
 
-    // }
+    }
         , [roomDto])
-
-      //   useEffect(()=>{
-      //     console.log('form data : ', formData)
-      //  }, [formData])
-
 
 
        const handleChange = (event)=> {
@@ -103,58 +98,58 @@ export default function AddModal() {
 
     useEffect(()=>{
 
-      // let hotel = saveChanges();
+      let hotel = saveChanges();
       setFormData(
         {
           ...formData,
-          hotelDto: hotelDtoObj
+          hotelDto: hotel
         }
       )
 
     }, [hotelDtoObj])
 
-    // const saveChanges = () => {
+    const saveChanges = () => {
 
-    //   let hotel = new FormData();
+      let hotel = new FormData();
       
-    //   hotel.append("name", hotelDtoObj.name);
-    //   hotel.append("location", hotelDtoObj.location);
-    //   hotel.append("stars", hotelDtoObj.stars);
-    //   hotel.append("roomsNumber", hotelDtoObj.roomsNumber);
+      hotel.append("name", hotelDtoObj.name);
+      hotel.append("location", hotelDtoObj.location);
+      hotel.append("stars", hotelDtoObj.stars);
+      hotel.append("roomsNumber", hotelDtoObj.roomsNumber);
     
 
-    //   for(let i = 0; i < hotelDtoObj.files.length; i++) {
-    //         hotel.append('files', hotelDtoObj.files[i])
-    //   }
+      for(let i = 0; i < hotelDtoObj.files.length; i++) {
+            hotel.append('files', hotelDtoObj.files[i])
+      }
 
-    //   // for (let [key, value] of hotel.entries()) {
-    //   //   console.log(key, value);
-    //   // }
 
-    //   return hotel;
-    // }
+      return hotel;
+    }
 
-    // const sendData = async ()=> {
-    //   const response = await saveHotel(formData);
-    //   console.log(response)
-    // }
+
+    useEffect(()=>{
+
+      const updatedRequest = new FormData();
+      updatedRequest.append("hotelDto", formData.hotelDto);
+      updatedRequest.append("roomDtos", formData.roomDtos);
+      setRequest(updatedRequest);
+
+    }, [formData])
+
+    useEffect(()=>{
+      for (let [key, value] of request.entries()) {
+        console.log(key, value);
+      }    
+    }, [request])
 
     const handleSubmit = async ()=> {
-
-      // let data = new FormData();
-      // data.append("hotelDto", formData.hotelDto);
-      // data.append("roomDtos", formData.roomDtos);
-
-      const response = await saveHotel(formData);
+      
+      const response = await saveHotel(request);
       console.log(response)
-      // console.log(formData);
       
       }
 
-  
-    useEffect(()=>{
-      console.log(hotelDtoObj)
-    }, [hotelDtoObj])
+
 
     useEffect(()=>{
       console.log(formData)

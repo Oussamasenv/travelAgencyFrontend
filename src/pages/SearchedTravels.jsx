@@ -162,13 +162,13 @@ export default function SearchedTravels() {
         
                                                 <div className="bg-white group w-full rounded-xl overflow-hidden shadow-lg">
                                                     <div className="rounded-lg  h-[12rem]">
-                                                        <img className="object-cover h-full w-full" src={europe} alt="" />
+                                                        <img className="object-cover h-full w-full" src={`/images/${travel.programs && travel.programs[0].filedatas[0].name}`} alt="" />
                                                     </div>
                                                     <div className="p-4 pt-2 border-2">
                                                         <p className="pb-2 text-2xl font-semibold group-hover:text-rose-400 transition ease-in-out ease-out-in delay-100">{travel.name}</p>
                                                         <p className="break-words text-sm line-clamp-2">{travel.description}</p>
-                                                        <p className="mt-2 font-semibold text-red-500 line-through">16,000.00MAD</p>
-                                                        <p className="text-xl font-semibold">14,000.00MAD</p>
+                                                        <p className="mt-2 font-semibold text-red-500 line-through">14000 MAD</p>
+                                                        <p className="text-xl font-semibold">{travel.initialPrice} MAD</p>
                                                     </div>
                                                 </div>
                                             </div>

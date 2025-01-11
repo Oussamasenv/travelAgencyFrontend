@@ -24,7 +24,7 @@ export default function RegisterForm(props){
     const [validForm, setValidForm] = useState(false);
 
 
-    const validateForm = () => {
+    const validateForm = (callback) => {
 
         let formIsValid = true;
         let errors = {};
@@ -78,6 +78,8 @@ export default function RegisterForm(props){
         setErrors(errors);
         setValidForm(formIsValid);
 
+        callback(validForm);
+
         };
 
         const handleChange = (event) => {
@@ -85,15 +87,35 @@ export default function RegisterForm(props){
             setFormData({...register, [event.target.name]: event.target.value});
         };
 
-        const handleSubmit = (event) => {
-            console.log("check 1")
+        const handleSubmit = async (event) => {
+
             event.preventDefault();
 
-            validateForm();
-            // if (validForm) {
-                console.log('Form is valid, submit data: ', register, validateForm());
-                registerOperation(register);
-        // };
+            validateForm( async (validForm) => {
+
+                if (validForm) {
+
+                    const response = await registerOperation(register);
+                
+                if (response.status === 200) {
+
+                    navigate('/');
+
+                } else {
+
+                    alert('credentials are not correct');
+                    setValidForm(false);
+
+                }
+
+                }
+                
+
+            });
+   
+                
+                
+
 
     }
 
